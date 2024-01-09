@@ -36,5 +36,5 @@ tasks.named('test') {
 jar{
 
 	//archiveName = "contactme.jar"
-	//archiveBaseName = "contactMe"
+	archiveBaseName = "contactme"
 }
