@@ -4,10 +4,11 @@ phases:
   build:
     commands:
       - echo Entered the build phase...
+      - java -version
       - gradle assemble
   post_build:
     commands:
-      - echo Build (assemble) completed successfully
+      - echo Build assemble completed successfully
 artifacts:
   files:
     - build/libs/ContactMe-1.jar
