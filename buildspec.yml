@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Entered the build phase...
+      - gradle assemble
+  post_build:
+    commands:
+      - echo Build (assemble) completed successfully
+artifacts:
+  files:
+    - build/libs/ContactMe-1.jar
+  discard-paths: yes
