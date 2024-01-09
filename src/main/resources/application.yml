@@ -1,0 +1,16 @@
+server:
+  port: 8701
+  address: 0.0.0.0
+
+management:
+  endpoints:
+    enabled-by-default: true
+  endpoint:
+    info:
+      enabled: true
+    mappings:
+      enabled: true
+
+c_me:
+  d: r1
+
