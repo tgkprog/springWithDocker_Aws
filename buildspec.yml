@@ -11,8 +11,8 @@ phases:
       - echo img tag $IMAGE_TAG.
       - echo "sleep for 8 seconds"
       - sleep 8
-      - echo "sleep for 4 seconds"
-      - sleep 4
+      - echo "aws docker login"
+      - aws ecr get-login-password | docker login --username AWS --password-stdin 637423423562.dkr.ecr.eu-north-1.amazonaws.com
   build:
     commands:
       - echo Build started on `date` v004
@@ -26,6 +26,7 @@ phases:
       - echo Post build `date`
       - echo COMMIT_HASH $COMMIT_HASH
       - echo pushing `$REPOSITORY_URI:latest`
+      - aws ecr get-login-password | docker login --username AWS --password-stdin 637423423562.dkr.ecr.eu-north-1.amazonaws.com
       - docker push $REPOSITORY_URI:latest
 
 artifacts:
