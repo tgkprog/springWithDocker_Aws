@@ -7,7 +7,8 @@ phases:
       - REPOSITORY_URI=$ECR_REPO_URL
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
-      - #start-dockerd
+      - echo commit hash $COMMIT_HASH.
+      - echo img tag $IMAGE_TAG.
       - echo "sleep for 8 seconds"
       - sleep 8
       - echo "sleep for 4 seconds"
@@ -23,9 +24,10 @@ phases:
   post_build:
     commands:
       - echo Post build `date`
-      - echo pushing $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:latest
       - echo COMMIT_HASH $COMMIT_HASH
+      - echo pushing `sel2in/contactmev002_$REPOSITORY_URI:latest`
+      - docker push sel2in/contactmev002_$REPOSITORY_URI:latest
+
 artifacts:
   files:
     - build/libs/ContactMe-1.jar
