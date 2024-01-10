@@ -3,12 +3,11 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws --version
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - echo start pre `date`
       - REPOSITORY_URI=$ECR_REPO_URL
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - start-dockerd
       - echo "sleep for 8 seconds"
       - sleep 8
       - echo "sleep for 4 seconds"
