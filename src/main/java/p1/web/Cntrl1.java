@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import p1.Str4;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 
@@ -82,5 +84,13 @@ public class Cntrl1 {
         log.info("init ***");
         log.info(d1);
         log.info(d);
+
+        try {
+            System.out.println("Cont . " );
+            File f = new File(".");
+            System.out.println("Folder " + f.getCanonicalFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
