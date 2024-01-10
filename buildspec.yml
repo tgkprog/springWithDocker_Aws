@@ -11,11 +11,16 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=$ECR_REPO_URL
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}    
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - echo "sleep for 8 seconds"
+      - sleep 8
+      - echo "sleep for 4 seconds"
+      - sleep 4
   build:
     commands:
       - echo Build started on `date` v004
       - java -version
+      - echo $COMMIT_HASH>src/main/resources/tag
       - gradle assemble
       - docker build --build-arg  JAR_FILE=build/libs/ContactMe-1.jar   -t sel2in/contactmev002_$REPOSITORY_URI:latest .
       #- 637423423562.dkr.ecr.eu-north-1.amazonaws.com/jancfour1:latest
@@ -24,6 +29,7 @@ phases:
       - echo Post build `date`
       - echo pushing $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:latest
+      - echo COMMIT_HASH $COMMIT_HASH
 artifacts:
   files:
     - build/libs/ContactMe-1.jar
