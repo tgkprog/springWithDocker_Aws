@@ -12,22 +12,21 @@ phases:
       - echo "sleep for 8 seconds"
       - sleep 8
       - echo "aws docker login"
-      - aws ecr get-login-password | docker login --username AWS --password-stdin 637423423562.dkr.ecr.eu-north-1.amazonaws.com
+      - aws ecr get-login-password | docker login --username AWS --password-stdin $REPOSITORY_URI
   build:
     commands:
       - echo Build started on `date` v004
       - java -version
       - echo $COMMIT_HASH>src/main/resources/tag
       - gradle assemble
-      - docker build --build-arg  JAR_FILE=build/libs/ContactMe-1.jar   -t $REPOSITORY_URI:latest .
+      - docker build --build-arg  JAR_FILE=build/libs/ContactMe-1.jar   -t sel2in_contactme2_$REPOSITORY_URI:latest .
       #- 637423423562.dkr.ecr.eu-north-1.amazonaws.com/jancfour1:latest
   post_build:
     commands:
       - echo Post build `date`
       - echo COMMIT_HASH $COMMIT_HASH
-      - echo pushing `$REPOSITORY_URI:latest`
-      - aws ecr get-login-password | docker login --username AWS --password-stdin 637423423562.dkr.ecr.eu-north-1.amazonaws.com
-      - docker push $REPOSITORY_URI:latest
+      - echo pushing `sel2in_contactme2_$REPOSITORY_URI:latest`
+      - docker push sel2in_contactme2_$REPOSITORY_URI:latest
 
 artifacts:
   files:
