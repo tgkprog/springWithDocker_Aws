@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import p1.Str4;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Date;
 
@@ -76,6 +78,23 @@ public class Cntrl1 {
             , produces = MediaType.TEXT_HTML_VALUE)
     public String hme() {
         return "hi x2 " + new java.util.Date();
+    }
+
+    @RequestMapping(value = "/ver", method = RequestMethod.GET
+            , produces = MediaType.TEXT_HTML_VALUE)
+    public String code() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("v2 ");
+        try(InputStream is =  new BufferedInputStream(getClass().getResourceAsStream("../../tag"));) {
+            int i =0;
+            while ((i = is.read()) != -1) {
+                sb.append((char)i);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            sb.append( "ex " + e);
+        }
+        return sb.toString() ;
     }
 
     @PostConstruct
